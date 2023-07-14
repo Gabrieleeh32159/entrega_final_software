@@ -1,0 +1,25 @@
+Que cambiaria en el codigo?
+
+    Sin necesidad de cambiar las clases, en las rutas de la API antes de hacer la transferencia debo consultar el historial por fecha actual,
+    luego verificar que el usuario que quiere hacer la transferencia no haya excedido el monto permitido. De no haber excedido se
+    procede con la transferencia, caso contrario se cancela y manda error.
+    Sin embargo, esta solucion puede ser muy costosa. Cambiando la clase User se puede agregar un atributo "transfered_today" que almacene el
+    monto total que ha transferido el usuario el dia de hoy y cada 12:00am este programado reiniciar dicho atributo a 0.
+
+Nuevos casos de prueba a adicionar
+
+    Se debe adicionar 2 principales casos de prueba. 1 de exito en el que verifique que el usuario ha hecho su primera transferencia del dia
+    de un monto menor a 200 soles y este de una respuesta positiva. Luego probar que cuando exceda el monto de 200 soles diarios permitido me
+    deberia arrojar un error.
+
+Riesgo de romper lo que ya funciona
+
+    Si la aplicacion ha estado funcinando mucho tiempo, podria ser recomendable preguntarnos que hacer con los anteriores usuarios que ya han
+    transferido mas de 200 soles al dia. Particularmente yo los dejaria ahi.
+    Por otro lado, si modifico el procedimiento en la API no deberia haber mucho riesgo de romper la app, ya que solo estamos agregando una
+    verificacion antes de realizar la operacion a traves de consultas.
+    Si uso la opcion de agregar un atributo a la clase, en un principio no deberia haber mucho problema, pero si este modelo se relaciona a una
+    base de datos relacional puede haber problemas para la nueva columna y tratar los null anteriores.
+
+    En general no hay mucho riesgo de romper la aplicacion porque no estamos haciendo modificaciones muy grandes, solo una verificacion para 
+    validar una transferencia.
